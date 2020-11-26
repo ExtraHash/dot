@@ -3,6 +3,7 @@ from time import sleep
 import requests
 import xmltodict
 import re
+import math
 from constants import colors, color_weights
 
 blue_led = PWMLED(23)
@@ -41,11 +42,12 @@ def get_dot_color():
             blend_color = colors[i + 2]
             inv_opacity = 1 - opacity
 
-            r = blend_color[0] * opacity + inv_opacity * out_color[0]
-            g = blend_color[1] * opacity + inv_opacity * out_color[1]
-            b = blend_color[2] * opacity + inv_opacity * out_color[2]
+            r = math.floor(blend_color[0] * opacity + inv_opacity * out_color[0])
+            g = math.floor(blend_color[1] * opacity + inv_opacity * out_color[1])
+            b = math.floor(blend_color[2] * opacity + inv_opacity * out_color[2])
 
             out_color = (r, g, b)
+            print(out_color)
 
     return out_color
 
